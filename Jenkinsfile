@@ -11,14 +11,14 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Jose4HM/dataops_clases.git'
             }
         }
-        
+
         stage('Preparar entorno') {
             steps {
                 echo "Creando entorno virtual e instalando dependencias..."
                 bat '"C:\\Users\\Nitro\\AppData\\Local\\Programs\\Python\\Python314\\python.exe" -m venv venv'
                 bat 'venv\\Scripts\\activate && pip install --upgrade pip && pip install -r requirements.txt'
             }
-}
+        }
 
         stage('Ejecutar script') {
             steps {
@@ -37,4 +37,3 @@ pipeline {
         }
     }
 }
-
