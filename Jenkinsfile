@@ -2,13 +2,6 @@ pipeline {
     agent any
 
     stages {
-        sstage('Clonar repositorio') {
-    steps {
-        deleteDir()
-        git branch: 'main',
-            url: 'https://github.com/Jose4HM/dataops_clases.git'
-    }
-}
 
         stage('Instalar dependencias') {
             steps {
@@ -16,9 +9,18 @@ pipeline {
             }
         }
 
-        stage('Ejecutar análisis de pacientes') {
+        stage('Preparar entorno') {
             steps {
-                sh 'python3 main.py'
+                echo "Creando entorno virtual..."
+                bat '"C:\\Users\\Nitro\\AppData\\Local\\Programs\\Python\\Python314\\python.exe" -m venv venv'
+                bat 'venv\\Scripts\\activate && pip install -r requirements.txt'
+            }
+        }
+
+        stage('Ejecutar script') {
+            steps {
+                echo "Ejecutando script principal..."
+                bat 'venv\\Scripts\\activate && python src\\main.py'
             }
         }
     }
@@ -32,3 +34,4 @@ pipeline {
         }
     }
 }
+
