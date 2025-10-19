@@ -1,8 +1,17 @@
 pipeline {
     agent any
+    options {
+        skipDefaultCheckout(true)
+    }
 
     stages {
-
+        stage('Clonar repositorio') {
+            steps {
+                deleteDir()
+                git branch: 'main', url: 'https://github.com/Jose4HM/dataops_clases.git'
+            }
+        }
+        
         stage('Preparar entorno') {
             steps {
                 echo "Creando entorno virtual e instalando dependencias..."
