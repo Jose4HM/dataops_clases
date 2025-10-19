@@ -23,7 +23,7 @@ pipeline {
         stage('Ejecutar script') {
             steps {
                 echo "Ejecutando script principal..."
-                bat 'venv\\Scripts\\activate && python src\\main.py'
+                bat 'venv\\Scripts\\activate && python main.py'
             }
         }
     }
