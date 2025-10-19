@@ -3,19 +3,13 @@ pipeline {
 
     stages {
 
-        stage('Instalar dependencias') {
-            steps {
-                sh 'pip install -r requirements.txt'
-            }
-        }
-
         stage('Preparar entorno') {
             steps {
-                echo "Creando entorno virtual..."
+                echo "Creando entorno virtual e instalando dependencias..."
                 bat '"C:\\Users\\Nitro\\AppData\\Local\\Programs\\Python\\Python314\\python.exe" -m venv venv'
-                bat 'venv\\Scripts\\activate && pip install -r requirements.txt'
+                bat 'venv\\Scripts\\activate && pip install --upgrade pip && pip install -r requirements.txt'
             }
-        }
+}
 
         stage('Ejecutar script') {
             steps {
