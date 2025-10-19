@@ -2,11 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage('Clonar repositorio') {
-            steps {
-                git 'https://github.com/Jose4HM/dataops_clases.git'
-            }
-        }
+        sstage('Clonar repositorio') {
+    steps {
+        deleteDir()
+        git branch: 'main',
+            url: 'https://github.com/Jose4HM/dataops_clases.git'
+    }
+}
 
         stage('Instalar dependencias') {
             steps {
