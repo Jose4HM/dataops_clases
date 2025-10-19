@@ -25,7 +25,7 @@ num_criticos = (df['Estado'] == 'CRÍTICO').sum()
 
 df.to_csv('datos/reporte_pacientes.csv', index=False)
 
-print("✅ Análisis completado correctamente.")
+print("Analisis completado correctamente.")
 print(f"Promedio de temperatura: {prom_temp:.2f} °C")
 print(f"Promedio de frecuencia cardíaca: {prom_fc:.1f} bpm")
 print(f"Pacientes críticos detectados: {num_criticos}")

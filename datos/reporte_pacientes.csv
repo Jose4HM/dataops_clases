@@ -1,0 +1,6 @@
+Nombre,Edad,Temperatura,Presion_Sistolica,Presion_Diastolica,Frecuencia_Cardiaca,Estado
+Ana,35,36.8,120,80,78,NORMAL
+Luis,50,38.5,145,95,102,CRÍTICO
+Marta,60,37.2,130,85,88,NORMAL
+José,28,39.1,110,70,120,CRÍTICO
+Sofía,45,36.5,118,76,82,NORMAL
