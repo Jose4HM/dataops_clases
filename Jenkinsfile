@@ -1,25 +1,32 @@
 pipeline {
-agent any
+    agent any
 
-stages {
-    stage('Preparar entorno') {
-        steps {
-        echo "Creando entorno virtual..."
-        bat '"C:\\Users\\Nitro\\AppData\\Local\\Programs\\Python\\Python314\\python.exe" -m venv venv'
-        bat 'venv\\Scripts\\activate && pip install -r requirements.txt'
+    stages {
+        stage('Clonar repositorio') {
+            steps {
+                git 'https://github.com/Jose4HM/dataops_clases.git'
+            }
+        }
+
+        stage('Instalar dependencias') {
+            steps {
+                sh 'pip install -r requirements.txt'
+            }
+        }
+
+        stage('Ejecutar análisis de pacientes') {
+            steps {
+                sh 'python3 main.py'
+            }
         }
     }
-
-    stage('Ejecutar script') {
-        steps {
-        echo "Ejecutando script principal..."
-        bat 'venv\\Scripts\\activate && python hello.py'
-        }
-    }
-}
 
     post {
-    success { echo "✅ Pipeline completado con éxito" }
-    failure { echo "❌ Error en alguna etapa del pipeline" }
+        success {
+            echo '✅ Análisis de pacientes completado exitosamente.'
+        }
+        failure {
+            echo '❌ Error en la ejecución del análisis.'
+        }
     }
 }
