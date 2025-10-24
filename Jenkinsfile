@@ -19,7 +19,7 @@ pipeline {
 
         stage('Instalar dependencias') {
             steps {
-                bat 'python -m pip install -r requirements.txt'
+                bat '"C:\\Users\\Nitro5\\AppData\\Local\\Programs\\Python\\Python314\\python.exe -m pip install -r requirements.txt'
             }
         }
 
