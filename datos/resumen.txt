@@ -1,2 +1,2 @@
-Pacientes criticos: 0
-Pacientes normales: 20
+Pacientes criticos: 59
+Pacientes normales: 441

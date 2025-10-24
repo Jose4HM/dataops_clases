@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 # Api para obtenre data random de personas
-url = "https://randomuser.me/api/?results=20"
+url = "https://randomuser.me/api/?results=500"
 response = requests.get(url)
 data = response.json()["results"]
 
@@ -12,14 +12,14 @@ data = response.json()["results"]
 df_data_user_full = pd.json_normalize(data)
 
 # Solo nos improta las columnas importantes
-df_data_user = df_data_user_full[['gender', 'name.first', 'name.last']].copy()
+df_data_user = df_data_user_full[['gender', 'name.first', 'name.last','registered.age']].copy()
 
 # GEneramos data random para los signos
 np.random.seed(42)
-df_data_user["Temperatura"] = np.random.normal(36.7, 0.5, len(df_data_user))
-df_data_user["Presion_Sistolica"] = np.random.normal(120, 10, len(df_data_user))
-df_data_user["Presion_Diastolica"] = np.random.normal(80, 5, len(df_data_user))
-df_data_user["Frecuencia_Cardiaca"] = np.random.normal(75, 8, len(df_data_user))
+df_data_user["Temperatura"] = np.round(np.random.normal(36.7, 0.5, len(df_data_user)), 2)
+df_data_user["Presion_Sistolica"] = np.round(np.random.normal(120, 10, len(df_data_user)), 2)
+df_data_user["Presion_Diastolica"] = np.round(np.random.normal(80, 5, len(df_data_user)), 2)
+df_data_user["Frecuencia_Cardiaca"] = np.round(np.random.normal(75, 8, len(df_data_user)), 2)
 
 # Reglas para derectar
 TEMP_MAX = 37.5
