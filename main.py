@@ -42,4 +42,4 @@ with open("datos/resumen.txt", "w") as f:
     f.write(f"Pacientes críticos: {resumen.get('CRÍTICO', 0)}\n")
     f.write(f"Pacientes normales: {resumen.get('NORMAL', 0)}\n")
 
-print("✅ Análisis completado.")
+print("Análisis completado.")
