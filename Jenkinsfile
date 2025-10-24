@@ -25,7 +25,7 @@ pipeline {
 
         stage('Extraer y analizar datos desde API') {
             steps {
-                bat 'python main.py'
+                bat '"C:\\Users\\Nitro5\\AppData\\Local\\Programs\\Python\\Python314\\python.exe" main.py'
             }
         }
 
