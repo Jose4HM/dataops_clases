@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Provisionar infraestructura') {
             steps {
-                sh '''
+                bat '''
                 cd terraform/
                 terraform init
                 terraform apply -auto-approve
@@ -17,13 +17,13 @@ pipeline {
 
         stage('Instalar dependencias') {
             steps {
-                sh 'pip install -r requirements.txt'
+                bat 'pip install -r requirements.txt'
             }
         }
 
         stage('Extraer y analizar datos desde API') {
             steps {
-                sh 'python3 main.py'
+                bat 'python3 main.py'
             }
         }
 
@@ -48,7 +48,7 @@ Sistema Jenkins - Clínica""",
 
         stage('Provisionar infraestructura') {
     steps {
-        sh '''
+        bat '''
         cd terraform/
         terraform init
         terraform apply -auto-approve
@@ -58,7 +58,7 @@ Sistema Jenkins - Clínica""",
 
 stage('Liberar infraestructura') {
     steps {
-        sh '''
+        bat '''
         cd terraform/
         terraform destroy -auto-approve
         '''
