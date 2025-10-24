@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DESTINATARIO = credentials('correo-clinica')  // credencial configurada en Jenkins
+        DESTINATARIO = "jhanccoma@gmail.com"
     }
 
     stages {
