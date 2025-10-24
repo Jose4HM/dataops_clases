@@ -1,39 +1,69 @@
 pipeline {
     agent any
-    options {
-        skipDefaultCheckout(true)
+    environment {
+        DESTINATARIO = credentials('correo-clinica')  // credencial configurada en Jenkins
     }
 
     stages {
-        stage('Clonar repositorio') {
+        stage('Provisionar infraestructura') {
             steps {
-                deleteDir()
-                git branch: 'main', url: 'https://github.com/Jose4HM/dataops_clases.git'
+                sh '''
+                cd terraform/
+                terraform init
+                terraform apply -auto-approve
+                '''
             }
         }
 
-        stage('Preparar entorno') {
+        stage('Instalar dependencias') {
             steps {
-                echo "Creando entorno virtual e instalando dependencias..."
-                bat '"C:\\Users\\Nitro\\AppData\\Local\\Programs\\Python\\Python314\\python.exe" -m venv venv'
-                bat 'venv\\Scripts\\activate && pip install --upgrade pip && pip install -r requirements.txt'
+                sh 'pip install -r requirements.txt'
             }
         }
 
-        stage('Ejecutar script') {
+        stage('Extraer y analizar datos desde API') {
             steps {
-                echo "Ejecutando script principal..."
-                bat 'venv\\Scripts\\activate && python main.py'
+                sh 'python3 main.py'
             }
         }
+
+        stage('Enviar reporte por correo') {
+            steps {
+                emailext(
+                    subject: "Reporte de análisis clínico automatizado",
+                    body: """Hola equipo clínico,
+                    
+Se completó el análisis de pacientes basado en datos extraídos de la API.
+Adjunto se encuentra el reporte con los resultados.
+
+${readFile('datos/resumen.txt')}
+                    
+Saludos,
+Sistema Jenkins - Clínica""",
+                    to: "$DESTINATARIO",
+                    attachmentsPattern: "datos/reporte_pacientes.csv"
+                )
+            }
+        }
+
+        stage('Provisionar infraestructura') {
+    steps {
+        sh '''
+        cd terraform/
+        terraform init
+        terraform apply -auto-approve
+        '''
     }
+}
 
-    post {
-        success {
-            echo '✅ Análisis de pacientes completado exitosamente.'
-        }
-        failure {
-            echo '❌ Error en la ejecución del análisis.'
-        }
+stage('Liberar infraestructura') {
+    steps {
+        sh '''
+        cd terraform/
+        terraform destroy -auto-approve
+        '''
+    }
+}
+
     }
 }
