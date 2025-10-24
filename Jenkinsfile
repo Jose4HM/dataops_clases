@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DESTINATARIO = "jhanccoma@gmail.com"
+        DESTINATARIO = "jhanccoma@unsa.edu.pe"
     }
 
     stages {
@@ -37,13 +37,13 @@ pipeline {
                         subject: "Reporte de análisis clínico automatizado",
                         body: """Hola equipo clínico,
                         
-Se completó el análisis de pacientes basado en datos extraídos de la API.
-Adjunto se encuentra el reporte con los resultados.
+                                Se completó el análisis de pacientes basado en datos extraídos de la API.
+                                Adjunto se encuentra el reporte con los resultados.
 
-${resumen}
-                        
-Saludos,
-Sistema Jenkins - Clínica""",
+                                ${resumen}
+                                                        
+                                Saludos, Jose Hancco
+                                Sistema Jenkins + Python + Terraform - Clínica ABC""",
                         to: "${DESTINATARIO}",
                         attachmentsPattern: "datos/reporte_pacientes.csv"
                     )
